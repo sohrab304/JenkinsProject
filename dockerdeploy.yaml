@@ -1,0 +1,32 @@
+---
+  - name: Deploy webserver on docker
+    hosts: webservers
+    become: yes
+    become_method: sudo
+    remote_user: root
+    become_user: root
+    vars:
+      container_name: web_app
+#     DockerFile_location: /opt/docker
+    gather_facts: false
+#
+    tasks:
+      - name: Remove Previous images
+        ignore_errors: yes
+        shell: docker stop '{{ container_name }}'
+
+      - name: remove stopped container
+        ignore_errors: yes
+        shell: docker rm -f '{{ container_name }}'
+
+      - name: remove docker images
+        ignore_errors: yes
+        shell: docker image rm -f '{{ container_name }}'
+
+      - name: Create Docker file
+        shell: docker build -t '{{ container_name }}' .
+        args:
+          chdir: /opt/docker
+
+      - name: Run Container using web_app
+        shell: docker run -d --name '{{ container_name }}' -p 8090:8080 '{{ container_name }}'

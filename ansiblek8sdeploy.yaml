@@ -7,6 +7,7 @@
     become_user: root
     vars:
       container_name: localhost:32000/web_app
+      container_new: :new
       K8s_yaml: /opt/docker/k8swebappdeploy.yaml
     gather_facts: false
 #
@@ -16,12 +17,12 @@
         shell: docker image rm -f '{{ container_name }}'
 
       - name: Build Docker image
-        shell: docker build -t '{{ container_name }}' .
+        shell: docker build -t '{{ container_name }}''{{ container_new }}' .
         args:
           chdir: /opt/docker
 
       - name: Docker push to local registry in microk8s
-        shell: docker push '{{ container_name }}'
+        shell: docker push '{{ container_name }}''{{ container_new }}'
 
       - name: Kubernetes Deploy update
         shell: /var/lib/snapd/snap/bin/microk8s kubectl apply -f '{{ K8s_yaml }}'

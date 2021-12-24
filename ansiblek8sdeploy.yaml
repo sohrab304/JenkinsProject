@@ -24,4 +24,4 @@
         shell: docker push '{{ container_name }}'
 
       - name: Kubernetes Deploy update
-        shell: kubectl apply -f '{{ K8s_yaml }}'
+        shell: microk8s kubectl apply -f '{{ K8s_yaml }}'

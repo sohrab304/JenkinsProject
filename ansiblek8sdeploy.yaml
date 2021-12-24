@@ -1,0 +1,29 @@
+---
+  - name: Deploy webserver on Kubernetes
+    hosts: webservers
+    become: yes
+    become_method: sudo
+    remote_user: root
+    become_user: root
+    vars:
+      container_name: localhost:32000/web_app
+#     K8s_yaml: /opt/docker/ansiblek8sdeploy.yaml
+    gather_facts: false
+#
+    tasks:
+      - name: remove docker image
+        ignore_errors: yes
+        shell: docker image rm -f '{{ container_name }}'
+
+      - name: Build Docker image
+        shell: docker build -t '{{ container_name }}' .
+        args:
+          chdir: /opt/docker
+
+
+      - name: Docker push to local registry in microk8s
+        shell: docker push '{{ container_name }}'
+
+
+      - name: Kubernetes Deploy update
+        shell: kubectl apply -f '{{ K8s_yaml }}'

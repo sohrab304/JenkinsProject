@@ -20,10 +20,8 @@
         args:
           chdir: /opt/docker
 
-
       - name: Docker push to local registry in microk8s
         shell: docker push '{{ container_name }}'
-
 
       - name: Kubernetes Deploy update
         shell: kubectl apply -f '{{ K8s_yaml }}'

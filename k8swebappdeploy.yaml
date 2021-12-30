@@ -28,6 +28,7 @@ metadata:
 spec:
   selector:
     matchLabels:
+      export: Export
       app: web-app
   replicas: 2
   strategy:
@@ -36,6 +37,7 @@ spec:
     metadata:
       labels:
         app: web-app
+        export: Export
     spec:
       dnsPolicy: Default
       hostNetwork: false

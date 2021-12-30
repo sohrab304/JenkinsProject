@@ -1,2 +1,2 @@
-<h1> Deployed on Kubernetes Verision1</h1>
+<h5> Deployed on Kubernetes Verision2</h5>
 <h2> Deployed on Docker </h2>

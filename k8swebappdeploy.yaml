@@ -28,7 +28,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      octopusexport: OctopusExport
+      app: web-app
   replicas: 2
   strategy:
     type: RollingUpdate
@@ -36,7 +36,6 @@ spec:
     metadata:
       labels:
         app: web-app
-        octopusexport: OctopusExport
     spec:
       dnsPolicy: Default
       hostNetwork: false

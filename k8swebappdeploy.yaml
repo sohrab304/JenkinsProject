@@ -43,7 +43,7 @@ spec:
       hostNetwork: false
       containers:
         - name: web-app
-          image: localhost:32000/web_app:v4
+          image: localhost:32000/web_app:v1
           imagePullPolicy: Always
           ports:
             - name: web-app-port

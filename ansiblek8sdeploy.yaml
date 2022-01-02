@@ -8,7 +8,7 @@
 ########################################################
     vars:
       container_name: localhost:32000/web_app
-      container_version: :v4
+      container_version: :v1
       K8s_yaml: /opt/docker/k8swebappdeploy.yaml
  ########################################################
     gather_facts: false

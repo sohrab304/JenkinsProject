@@ -1,0 +1,33 @@
+=================================================================================================================================================================================
+
+Issue:---
+[kubelet-check] Initial timeout of 40s passed.
+[kubelet-check] It seems like the kubelet isn't running or healthy.
+[kubelet-check] The HTTP call equal to 'curl -sSL http://localhost:10248/healthz' failed with error: Get "http://localhost:10248/healthz": dial tcp [::1]:10248: connect: connection refused.
+
+=================================================================================================================================================================================
+=================================================================================================================================================================================
+                                                           Solution
+=================================================================================================================================================================================
+
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+"exec-opts": ["native.cgroupdriver=systemd"],
+"log-driver": "json-file",
+"log-opts": {
+"max-size": "100m"
+},
+"storage-driver": "overlay2"
+}
+EOF
+
+sudo systemctl enable docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+Check if the kubelet became running:
+sudo systemctl status kubelet
+
+The procedure is in:
+
+https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker

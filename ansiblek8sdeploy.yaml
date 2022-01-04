@@ -7,7 +7,7 @@
     become_user: root
 ########################################################
     vars:
-      container_name: localhost:32000/web_app
+      container_name: localhost:5000/web_app
       container_version: :v2
       K8s_yaml: /opt/docker/k8swebappdeploy.yaml
  ########################################################

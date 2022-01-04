@@ -23,7 +23,7 @@
         shell: docker push '{{ container_name }}''{{ container_version }}'
 
       - name: Kubernetes Deploy update
-        shell: /var/lib/snapd/snap/bin/microk8s kubectl apply -f '{{ K8s_yaml }}'
+        shell: /usr/bin/kubectl apply -f '{{ K8s_yaml }}'
       
       - name: remove docker image
         ignore_errors: yes
